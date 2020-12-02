@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOAL 2</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Form Product</h1>
+    <form>
+        <input type="text" id="namaproduk" placeholder="Product Name">
+        <input type="number" id="hargaproduk" placeholder="Product Price">
+        <br>
+            <label for="category"> Category :</label>
+                <input type="radio"  id="food" name="category" value="food" > Food
+                <input type="radio"  id="drink" name="category" value="drink"> Drink
+                <input type="radio"  id="other" name="category" value="other"> Other
+        <br>
+                <button onclick="OnButtonAdd()">Add</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</body>
+
+<script>
+    //akses get data
+    let tbody = document.getElementById("tbody")
+    let form = document.forms[0]
+
+    //membuat database array object
+    let products = [
+        {
+            name: 'apel',
+            price: 5000,
+            category: 'food'
+        },
+        {
+            name: 'milk',
+            price: 7000,
+            category: 'drink'
+        },
+        {
+            name: 'tisu',
+            price: 2000,
+            category: 'other'
+        },
+
+    ]
+
+    //showdatabase
+    let ShowProducts = (idx) => {
+        let tr = ''
+        for (let i = 0; i < products.length; i++) {
+            if (idx === i) {
+                tr += `
+            <tr>
+                <td><#/td>
+                <td>
+                    <input type='text' id='edit-name' value='${products[i].name}'
+                </td>
+                <td>
+                    <input type='number' id='edit-price' value='${products[i].price}'
+                </td>
+                <td>
+                    <form id='edit-category'>
+                        <input type="radio" id="food" name="editcategory" value="food"> Food
+                        <input type="radio" id="drink" name="editcategory" value="drink"> Drink
+                        <input type="radio" id="other" name="editcategory" value="other"> Other
+                    </form>
+                </td>
+                <td>
+                <button onclict='OnButtonSave(${i})'>SAVE</button>
+                <button onclict='ShowProducts()'>CANCEL</button>
+                </td>
+            
+            </tr>
+            
+            `
+            } else {
+                tr += `
+                <tr>
+                 <td>${i + 1}</td>
+                 <td>${products[i].name}</td>
+                 <td>${products[i].price}</td>
+                <td>${products[i].category}</td>
+                <td>
+                    <button onclick='ShowProducts(${i}')>EDIT</button>
+                    <button onclick='OnButtonDelete(${i})'>DELETE</button>
+                </td>
+                </tr>
+
+                `
+            }
+
+        }
+        tbody.innerHTML = tr
+    }
+
+    //show tablenya dong
+    ShowProducts()
+
+
+// produk baru
+let OnButtonAdd = () =>{
+//get dulu value dari input
+let name = form['namaproduk'].value
+let price =  form['hargaproduk'].value
+let category = document.getElementsByName('category').checked
+console.log(namaproduk, hargaproduk, category)
+
+if (name === '' || price === '' || category === '') {
+                alert("⚠ masukan data yang lengkap! !")
+                return
+            }
+
+//add produk baru ke tabel
+products.push({name, price, category})
+
+//reset forn inputnya
+form['name'].value =''
+form['price'].value =''
+form['category'].value =''
+
+//show  tabelnya
+ShowProducts()
+
+}
+
+//delete products
+let OnButtonDelete = idx => {
+products.splice(idx, 1)
+
+ShowProducts()
+}
+
+
+//save edit user
+let OnButtonSave = (idx) => {
+    let editname =document.getElementById('edit-name').value
+let editprice =document.getElementById('edit-price').value
+let editcategory= document.getElementsByName('editcategory')
+
+//update databasenya
+products[idx] = {name: editname, price: editprice, category: editcategory}
+
+ShowProducts()
+}
+
+</script>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOAL 1</title>
+</head>
+<body>
+    <h1>Masukan Kata :</h1>
+    <form>
+        <input type="text" id="kata" placeholder="Masukan sebuah Kata">
+    </form>
+    <button onclick="OnButtonHitungVocal()">Hitung Vocal</button>
+    <button onclick="OnButtonHurufVocal()">Huruf Vocal</button>
+    <button onclick="OnButtonTanpaVocal()">Tanpa Vocal</button>
+    <p>Hasil :</p>
+    <h1 id="output"></h1>
+</body>
+<script>
+//akses elemennya 
+// let kata = document.forms[0]['kata']
+// let output = document.getElementById('output')
+
+
+//hitung vocal
+let kata = document.getElementById('kata').value
+let output = document.getElementById('output')
+
+let OnButtonHitungVocal = ()=>{  
+    let teksArray = kata.split('')
+    let jumlahVocal = 0
+
+    for (let i = 0; i < teksArray.length; i++){
+        if(isVowel(teksArray[n]) === true) jumlahVocal++
+    }
+    output.innerHTML= jumlahVocal
+}
+
+let OnButtonHurufVocal = () =>{
+    let input = prompt(kata.value) 
+    let kata1 = input.split('')
+    let vocal = []
+
+    for(let i=0; i<kata1.length; i++){
+        if (kata1[i] == 'a'||kata1[i] == 'i' || kata1[i] == 'u' || kata1[i] == 'u' || kata1[i] == 'e' kata1[i] == 'o'){
+            vocal.push(kata1[i])
+        }    
+    }    
+    output.innerHTML= vocal
+}
+
+
+let OnButtonTanpaVocal = () =>{
+    let input2 = prompt(kata.value)
+    let kata2 = input.split('')
+    let tanpavocal = []
+
+    for(let i=0; i<kata2.length; i++){
+        if (kata2[i] !== 'a'||kata2[i] !== 'i' || kata2[i] !== 'u' || kata2[i] !== 'u' || kata2[i] !== 'e' kata2[i] == 'o'){
+            vocal.push(kata2[i])
+        }   
+    }    
+    output.innerHTML= tanpavocal
+}
+</script>
+</html>
+
+
